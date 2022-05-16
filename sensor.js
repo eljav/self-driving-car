@@ -22,7 +22,7 @@ class Sensor {
     #getReading(ray, roadBorders) {
         let touches = [];
         
-        for (let i = 0; i < roadBorders; i++) {
+        for (let i = 0; i < roadBorders.length; i++) {
             const touch = getIntersection(
                 ray[0],
                 ray[1],
@@ -38,7 +38,7 @@ class Sensor {
         } else {
             const offsets = touches.map(e => e.offset);
             const minOffset = Math.min(...offsets);
-            return touches.find(e => offset == minOffset);
+            return touches.find(e => e.offset == minOffset);
         }
     }
 
