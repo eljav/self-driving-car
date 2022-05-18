@@ -1,11 +1,11 @@
 document.getElementById('carCount').value =
-    localStorage.getItem('carCount') || 1;
+    localStorage.getItem("carCount") || 1;
 
 document.getElementById('mutationAmount').value =
-    localStorage.getItem('mutationAmount') || 1;
+    localStorage.getItem("mutationAmount") || '0.5';
 
 document.getElementById('playerCar').checked =
-    localStorage.getItem('playerCar') == "true" ? true : false;
+    localStorage.getItem("playerCar") == "true" ? true : false;
 
 const carCanvas = document.getElementById("carCanvas");
 carCanvas.width = 200;
