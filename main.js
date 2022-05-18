@@ -35,18 +35,18 @@ if (localStorage.getItem("bestBrain")) {
 
 const traffic = [
     // backline
-    new Car(road.getLaneCenter(0), 400, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(1), 400, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2), 400, 30, 50, "DUMMY", 2),
+    new Car(road.getLaneCenter(0), 400, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(1), 400, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(2), 400, 30, 50, "DUMMY", 2, getRandomColor()),
 
 
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 2),
-    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2),
+    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor())
 ];
 
 animate();
@@ -67,7 +67,7 @@ function generateCars(n) {
         cars.push(new Car(road.getLaneCenter(1), 100, 30, 50, "AI"));
     }
     if (playerCar)
-        cars.push(new Car(road.getLaneCenter(2), 100, 30, 50, "KEYS"));
+        cars.push(new Car(road.getLaneCenter(2), 100, 30, 50, "KEYS", 3, "red"));
     return cars;
 }
 
@@ -93,15 +93,15 @@ function animate(time) {
     
     road.draw(carCtx);
     for (let i = 0; i < traffic.length; i++) {
-        traffic[i].draw(carCtx, "red");
+        traffic[i].draw(carCtx);
     }
 
     carCtx.globalAlpha = 0.2;
     for (let i = 0; i < cars.length; i++) {
-        cars[i].draw(carCtx, "blue");
+        cars[i].draw(carCtx);
     }
     carCtx.globalAlpha = 1;
-    bestCar.draw(carCtx, "blue", true)
+    bestCar.draw(carCtx, true)
     
     carCtx.restore();
 
