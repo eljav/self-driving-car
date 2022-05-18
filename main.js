@@ -49,6 +49,7 @@ function generateCars(n) {
     for (let i = 1; i <= n; i++) {
         cars.push(new Car(road.getLaneCenter(1), 100, 30, 50, "AI"));
     }
+    cars.push(new Car(road.getLaneCenter(2), 100, 30, 50, "KEYS"));
     return cars;
 }
 
