@@ -1,3 +1,12 @@
+document.getElementById('carCount').value =
+    localStorage.getItem('carCount') || 1;
+
+document.getElementById('mutationAmount').value =
+    localStorage.getItem('mutationAmount') || 1;
+
+document.getElementById('playerCar').checked =
+    localStorage.getItem('playerCar') == "true" ? true : false;
+
 const carCanvas = document.getElementById("carCanvas");
 carCanvas.width = 200;
 
@@ -8,7 +17,9 @@ const carCtx = carCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 
-const n = 100;
+const playerCar = document.getElementById('playerCar').checked; 
+const mutationAmount = document.getElementById("mutationAmount").value;
+const n = document.getElementById("carCount").value;
 const cars = generateCars(n);
 let bestCar = cars[0];
 if (localStorage.getItem("bestBrain")) {
@@ -17,12 +28,18 @@ if (localStorage.getItem("bestBrain")) {
             localStorage.getItem("bestBrain")
         );
         if (i != 0) {
-            NeuralNetwork.mutate(cars[i].brain, 0.1);
+            NeuralNetwork.mutate(cars[i].brain, mutationAmount);
         }
     }
 }
 
 const traffic = [
+    // backline
+    new Car(road.getLaneCenter(0), 400, 30, 50, "DUMMY", 2),
+    new Car(road.getLaneCenter(1), 400, 30, 50, "DUMMY", 2),
+    new Car(road.getLaneCenter(2), 400, 30, 50, "DUMMY", 2),
+
+
     new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2),
     new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2),
     new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2),
@@ -49,7 +66,8 @@ function generateCars(n) {
     for (let i = 1; i <= n; i++) {
         cars.push(new Car(road.getLaneCenter(1), 100, 30, 50, "AI"));
     }
-    cars.push(new Car(road.getLaneCenter(2), 100, 30, 50, "KEYS"));
+    if (playerCar)
+        cars.push(new Car(road.getLaneCenter(2), 100, 30, 50, "KEYS"));
     return cars;
 }
 
@@ -89,5 +107,13 @@ function animate(time) {
 
     networkCtx.lineDashOffset = -time / 50;
     Visualizer.drawNetwork(networkCtx, bestCar.brain);
+
+    carCtx.font = "24px Arial";
+
+    const aliveCars = cars.filter(
+        c => c.damaged == false
+    );
+    carCtx.fillText("Alive cars: " + aliveCars.length, 10, 20);
+
     requestAnimationFrame(animate);
 }
